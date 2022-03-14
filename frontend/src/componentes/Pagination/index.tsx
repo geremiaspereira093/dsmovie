@@ -1,5 +1,4 @@
 import {ReactComponent as Arrow} from 'assets/img/Anterior.svg'
-import { type } from 'os';
 import { MoviePage } from 'Types/movies';
 import './Style.css'
 type Props={
