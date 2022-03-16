@@ -9,8 +9,8 @@ type Props = {
     movieId : string;
 }
 function FormCard({movieId}: Props) {
-
-    const navigate = useNavigate();
+   const navigate = useNavigate();
+   
    const [movie, setMovie] = useState<Movie>();
    useEffect(()=>{
        axios.get(`${BASE_URL}/movies/${movieId}`)
@@ -19,12 +19,14 @@ function FormCard({movieId}: Props) {
        })
    },[movieId]);
 
-   const handleSubimit = (event: React.FormEvent<HTMLFormElement>) =>{
+   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) =>{
        event.preventDefault();
        const email = (event.target as any).email.value;
        const score = (event.target as any).score.value;
 
-       if(validateEmail(email)){
+       console.log(email,score);
+
+       if(!validateEmail(email)){
            return;
        }
 
@@ -39,6 +41,7 @@ function FormCard({movieId}: Props) {
         }
     }
     axios(config).then(response =>{
+        console.log(response.data);
        navigate("/")
     });
    }
@@ -48,7 +51,7 @@ function FormCard({movieId}: Props) {
             <img className="dsmovie-movie-card-image" src={movie?.image} alt={movie?.title} />
             <div className="dsmovie-card-bottom-container">
                 <h3>{movie?.title}</h3>
-                <form className="dsmovie-form" onSubmit={handleSubimit}>
+                <form className="dsmovie-form" onSubmit={handleSubmit}>
                     <div className="form-group dsmovie-form-group">
                         <label htmlFor="email">Informe seu email</label>
                         <input type="email" className="form-control" id="email" />
